@@ -1,7 +1,8 @@
-// get element by id
 var questionCounter = 0
+var currentScore = 0
 var questionsArr = [
     {questionText: "Question 1",
+    //add colors to represent correct/incorrect answers
         answerArr: [
             {
                 choice: "Q1 C1",
@@ -64,71 +65,86 @@ var questionsArr = [
 ]
 
 $("#start").click(function() {
-    $("#start").addClass('hide');
-    $("#question").removeClass('hide');
-    $("#answers").removeClass('hide');
-    $("#next").removeClass('hide');
-    $("#question").text(questionsArr[0].questionText);
-    $("#answer-choice-1").text(questionsArr[0].answerArr[0].choice);
-    $("#answer-choice-2").text(questionsArr[0].answerArr[1].choice);
-    $("#answer-choice-3").text(questionsArr[0].answerArr[2].choice);
-    $("#answer-choice-4").text(questionsArr[0].answerArr[3].choice);
+    $("#start").addClass('hide')
+    $("#answers").removeClass('hide')
+    $("#next").removeClass('hide')
+    $("#question").text(questionsArr[0].questionText)
+    $("#answer-choice-1").text(questionsArr[0].answerArr[0].choice)
+    $("#answer-choice-2").text(questionsArr[0].answerArr[1].choice)
+    $("#answer-choice-3").text(questionsArr[0].answerArr[2].choice)
+    $("#answer-choice-4").text(questionsArr[0].answerArr[3].choice)
 });
 
 $("#next").click(function() {
-    questionCounter ++;
-    $("#question").text(questionsArr[questionCounter].questionText);
-    $("#answer-choice-1").text(questionsArr[questionCounter].answerArr[0].choice);
-    $("#answer-choice-2").text(questionsArr[questionCounter].answerArr[1].choice);
-    $("#answer-choice-3").text(questionsArr[questionCounter].answerArr[2].choice);
-    $("#answer-choice-4").text(questionsArr[questionCounter].answerArr[3].choice);
+    questionCounter ++
+    $("#question").text(questionsArr[questionCounter].questionText)
+    $("#answer-choice-1").text(questionsArr[questionCounter].answerArr[0].choice)
+    $("#answer-choice-2").text(questionsArr[questionCounter].answerArr[1].choice)
+    $("#answer-choice-3").text(questionsArr[questionCounter].answerArr[2].choice)
+    $("#answer-choice-4").text(questionsArr[questionCounter].answerArr[3].choice)
 });
 
 $("#answer-choice-1").click(function(){
     if (questionsArr[questionCounter].answerArr[0].value) {
-        alert ("You're correct!");
+        alert ("You're correct!")
+        currentScore += 5
+        $("#score").text(`Current Score: ${currentScore}`)
     }
     else {
-        alert ("You're wrong!");
+        alert ("You're wrong!")
     }
 });
 
 $("#answer-choice-2").click(function(){
     if (questionsArr[questionCounter].answerArr[1].value) {
-        alert ("You're correct!");
+        alert ("You're correct!")
+        currentScore += 5
+        $("#score").text(`Current Score: ${currentScore}`)
     }
     else {
-            alert ("You're wrong!");
-    };
+        alert ("You're wrong!")
+    }
 });
 
 $("#answer-choice-3").click(function(){
     if (questionsArr[questionCounter].answerArr[2].value) {
-        alert ("You're correct!");
+        alert ("You're correct!")
+        currentScore += 5
+        $("#score").text(`Current Score: ${currentScore}`)
     }
     else {
-            alert ("You're wrong!");
-    };
+        alert ("You're wrong!")
+    }
 });
 
 $("#answer-choice-4").click(function(){
     if (questionsArr[questionCounter].answerArr[3].value) {
-        alert ("You're correct!");
+        alert ("You're correct!")
+        currentScore += 5
+        $("#score").text(`Current Score: ${currentScore}`)
     }
     else {
-            alert ("You're wrong!");
-    };
+        alert ("You're wrong!")
+    }
 });
 
-
-
-// counter for questions
-
-// for loop to get index of question
-
-// booleans to determine question validity
-
-
+// Attempt at creating multiple tries
+// give less points for each subsequent try?
+// var triesRemaining = 3
+// $("#answer-choice-1").click(function(){
+//     if (questionsArr[questionCounter].answerArr[0].value) {
+//         alert ("You're correct!")
+//     }
+//     else {
+//         triesRemaining--
+//         if (triesRemaining=0) {
+//             alert (`Incorrect, you have no tries remaining`)
+//         }
+//         else {
+//             alert (`You're wrong! You have ${triesRemaining} tries remaining.`)
+//         }
+//     }
+// });
 
 
 // timer for quiz

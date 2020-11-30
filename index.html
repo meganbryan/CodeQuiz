@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Code Quiz</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
-    <div>
+    <div id = "heading-box">
         <a href = "highscores.html"> View Highscores </a>
+        <h1 id = "score"> Current Score: 0 </h1>
+    </div>
+    <div>
+        <h1 class="align-right"> Time Remaining: 60 </h1>
     </div>
     <div id= "main-box">
-        <h1 id="question" class="hide"> Question </h1>
+        <h1 id="question"> Coding Quiz </h1>
         <div id= "answers" class="hide">
-            <button id="answer-choice-1"> Button 1 </button>
-            <button id="answer-choice-2"> Button 2 </button>
-            <button id="answer-choice-3"> Button 3 </button>
-            <button id="answer-choice-4"> Button 4 </button>
+            <button id="answer-choice-1">  </button>
+            <button id="answer-choice-2">  </button>
+            <button id="answer-choice-3">  </button>
+            <button id="answer-choice-4">  </button>
         </div>
         <div>
             <button id="start"> Start Quiz </button>
             <button id="next" class="hide"> Next Question </button>
         </div>
-        
     </div>
     
     <script src="script.js"></script>
