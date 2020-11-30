@@ -1,5 +1,7 @@
 var questionCounter = 0
 var currentScore = 0
+var timeRemaining = 240
+
 var questionsArr = [
     {questionText: "Question 1",
     //add colors to represent correct/incorrect answers
@@ -67,15 +69,18 @@ var questionsArr = [
 $("#start").click(function() {
     $("#start").addClass('hide')
     $("#answers").removeClass('hide')
-    $("#next").removeClass('hide')
+    $("#timer-label").text(`Time Remaining:`)
     $("#question").text(questionsArr[0].questionText)
     $("#answer-choice-1").text(questionsArr[0].answerArr[0].choice)
     $("#answer-choice-2").text(questionsArr[0].answerArr[1].choice)
     $("#answer-choice-3").text(questionsArr[0].answerArr[2].choice)
     $("#answer-choice-4").text(questionsArr[0].answerArr[3].choice)
+    timeCounter();
 });
 
 $("#next").click(function() {
+    $("#answers").removeClass('hide')
+    $("#answer-feedback").text('')
     questionCounter ++
     $("#question").text(questionsArr[questionCounter].questionText)
     $("#answer-choice-1").text(questionsArr[questionCounter].answerArr[0].choice)
@@ -84,49 +89,78 @@ $("#next").click(function() {
     $("#answer-choice-4").text(questionsArr[questionCounter].answerArr[3].choice)
 });
 
-$("#answer-choice-1").click(function(){
-    if (questionsArr[questionCounter].answerArr[0].value) {
-        alert ("You're correct!")
-        currentScore += 5
-        $("#score").text(`Current Score: ${currentScore}`)
+function timeAppend() {
+    var minutesLeft = Math.floor(timeRemaining / 60);
+    var secondsLeft = (timeRemaining % 60);
+    $("#timer").text(`${minutesLeft} : ${secondsLeft}`);
+};
+
+function timeCounter() {
+    if (timeRemaining > 0) {
+        interval = setInterval(function() {
+            $("#timer").removeClass("red-text")
+            timeRemaining--;
+            timeAppend();
+        }, 1000);
     }
     else {
-        alert ("You're wrong!")
+        alert (`You're out of time! Your score is ${currentScore}!`)
+    };
+};
+
+function correctAnswer() {
+    $("#answers").addClass('hide')
+    $("#answer-feedback").text(`You're correct! You earned 5 points.`)
+    currentScore += 5
+    $("#score").text(`Current Score: ${currentScore}`)
+    $("#next").removeClass('hide')
+};
+
+function wrongAnswer() {
+    $("#answers").addClass('hide')
+    $("#answer-feedback").text(`Sorry, that's incorrect! 5 seconds have been deducted.`)
+    $("#timer").text(-5)
+    $("#timer").addClass("red-text")
+    timeRemaining -= 5
+    $("#next").removeClass('hide')
+};
+
+$("#answer-choice-1").click(function(){
+    if (questionsArr[questionCounter].answerArr[0].value) {
+        correctAnswer();
+    }
+    else {
+        wrongAnswer();
     }
 });
 
 $("#answer-choice-2").click(function(){
     if (questionsArr[questionCounter].answerArr[1].value) {
-        alert ("You're correct!")
-        currentScore += 5
-        $("#score").text(`Current Score: ${currentScore}`)
+        correctAnswer();
     }
     else {
-        alert ("You're wrong!")
+        wrongAnswer();
     }
 });
 
 $("#answer-choice-3").click(function(){
     if (questionsArr[questionCounter].answerArr[2].value) {
-        alert ("You're correct!")
-        currentScore += 5
-        $("#score").text(`Current Score: ${currentScore}`)
+        correctAnswer();
     }
     else {
-        alert ("You're wrong!")
+        wrongAnswer();
     }
 });
 
 $("#answer-choice-4").click(function(){
     if (questionsArr[questionCounter].answerArr[3].value) {
-        alert ("You're correct!")
-        currentScore += 5
-        $("#score").text(`Current Score: ${currentScore}`)
+        correctAnswer();
     }
     else {
-        alert ("You're wrong!")
+        wrongAnswer();
     }
 });
+
 
 // Attempt at creating multiple tries
 // give less points for each subsequent try?
