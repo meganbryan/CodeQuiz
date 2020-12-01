@@ -66,29 +66,6 @@ var questionsArr = [
     }
 ]
 
-$("#start").click(function() {
-    $("#start").addClass('hide')
-    $("#answers").removeClass('hide')
-    $("#timer-label").text(`Time Remaining:`)
-    $("#question").text(questionsArr[0].questionText)
-    $("#answer-choice-1").text(questionsArr[0].answerArr[0].choice)
-    $("#answer-choice-2").text(questionsArr[0].answerArr[1].choice)
-    $("#answer-choice-3").text(questionsArr[0].answerArr[2].choice)
-    $("#answer-choice-4").text(questionsArr[0].answerArr[3].choice)
-    timeCounter();
-});
-
-$("#next").click(function() {
-    $("#answers").removeClass('hide')
-    $("#answer-feedback").text('')
-    questionCounter ++
-    $("#question").text(questionsArr[questionCounter].questionText)
-    $("#answer-choice-1").text(questionsArr[questionCounter].answerArr[0].choice)
-    $("#answer-choice-2").text(questionsArr[questionCounter].answerArr[1].choice)
-    $("#answer-choice-3").text(questionsArr[questionCounter].answerArr[2].choice)
-    $("#answer-choice-4").text(questionsArr[questionCounter].answerArr[3].choice)
-});
-
 function timeAppend() {
     var minutesLeft = Math.floor(timeRemaining / 60);
     var secondsLeft = (timeRemaining % 60);
@@ -124,6 +101,50 @@ function wrongAnswer() {
     timeRemaining -= 5
     $("#next").removeClass('hide')
 };
+
+function highscoreStorage() {
+    $("#highscores-input").removeClass('hide')
+    $("#highscore-submit").click(function () {
+        localStorage.setItem("Initials", $("#initials").value);
+        localStorage.setItem("Score", currentScore);
+    })
+};
+
+function retrieveHighscores() {
+    var initials = localStorage.getItem("Initials");
+    var score = localStorage.getItem("Score");
+    $("#initialsLocalStorage").text(`User: ${initials}`);
+    $("#scoreLocalStorage").text(`Score: ${score}`);
+};
+retrieveHighscores()
+
+$("#start").click(function() {
+    $("#start").addClass('hide')
+    $("#answers").removeClass('hide')
+    $("#timer-label").text(`Time Remaining:`)
+    $("#question").text(questionsArr[0].questionText)
+    $("#answer-choice-1").text(questionsArr[0].answerArr[0].choice)
+    $("#answer-choice-2").text(questionsArr[0].answerArr[1].choice)
+    $("#answer-choice-3").text(questionsArr[0].answerArr[2].choice)
+    $("#answer-choice-4").text(questionsArr[0].answerArr[3].choice)
+    timeCounter();
+});
+
+$("#next").click(function() {
+    if (questionCounter < (questionsArr.length-1)) {
+        $("#answers").removeClass('hide')
+        $("#answer-feedback").text('')
+        questionCounter ++
+        $("#question").text(questionsArr[questionCounter].questionText)
+        $("#answer-choice-1").text(questionsArr[questionCounter].answerArr[0].choice)
+        $("#answer-choice-2").text(questionsArr[questionCounter].answerArr[1].choice)
+        $("#answer-choice-3").text(questionsArr[questionCounter].answerArr[2].choice)
+        $("#answer-choice-4").text(questionsArr[questionCounter].answerArr[3].choice)
+    }
+    else {
+        highscoreStorage();
+    }
+});
 
 $("#answer-choice-1").click(function(){
     if (questionsArr[questionCounter].answerArr[0].value) {
