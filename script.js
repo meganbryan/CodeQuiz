@@ -6,66 +6,206 @@ var highscoreArr = localStorage.getItem("userInfo", JSON.stringify(highscoreArr)
 highscoreArr = highscoreArr ? highscoreArr.split(',') : [];
 
 var questionsArr = [
-    {questionText: "Question 1",
+    {questionText: "Which particle contains a negative charge?",
         answerArr: [
             {
-                choice: "Q1 C1",
+                choice: "Proton",
+                value: false
+            },
+            {
+                choice: "Neutron",
+                value: false
+            },
+            {
+                choice: "Electron",
                 value: true
             },
             {
-                choice: "Q1 C2",
-                value: false
-            },
-            {
-                choice: "Q1 C3",
-                value: false
-            },
-            {
-                choice: "Q1 C4",
+                choice: "Neucleus",
                 value: false
             },
         ]
     },
-    {questionText: "Question 2",
+    {questionText: "What is the atomic number of nitrogen?",
         answerArr: [
             {
-                choice: "Q2 C1",
+                choice: "17",
                 value: false
             },
             {
-                choice: "Q2 C2",
+                choice: "12",
+                value: false
+            },
+            {
+                choice: "4",
+                value: false
+            },
+            {
+                choice: "7",
+                value: true
+            },
+        ]
+    },
+    {questionText: "How many atoms make up a water molecule?",
+        answerArr: [
+            {
+                choice: "1",
+                value: false
+            },
+            {
+                choice: "2",
+                value: false
+            },
+            {
+                choice: "3",
                 value: true
             },
             {
-                choice: "Q2 C3",
-                value: false
-            },
-            {
-                choice: "Q2 C4",
+                choice: "4",
                 value: false
             },
         ]
     },
-    {questionText: "Question 3",
+    {questionText: "In order to be classified as organic, a substance must contain ________.",
         answerArr: [
             {
-                choice: "Q3 C1",
-                value: false
-            },
-            {
-                choice: "Q3 C2",
-                value: false
-            },
-            {
-                choice: "Q3 C3",
+                choice: "Carbon",
                 value: true
             },
             {
-                choice: "Q3 C4",
+                choice: "Oxygen",
+                value: false
+            },
+            {
+                choice: "Carbon Dioxide",
+                value: false
+            },
+            {
+                choice: "Water",
                 value: false
             },
         ]
-    }
+    },
+    {questionText: "According to the Law of Multiple Proportions, if I want the yeild to double, I must ___________ the reactants",
+        answerArr: [
+            {
+                choice: "change",
+                value: false
+            },
+            {
+                choice: "double",
+                value: true
+            },
+            {
+                choice: "half",
+                value: false
+            },
+            {
+                choice: "quadruple",
+                value: false
+            },
+        ]
+    },
+    {questionText: "What is the element with the highest atomic number that occurs naturally?",
+        answerArr: [
+            {
+                choice: "Plutonium",
+                value: false
+            },
+            {
+                choice: "Argon",
+                value: false
+            },
+            {
+                choice: "Iron",
+                value: false
+            },
+            {
+                choice: "Uranium",
+                value: true
+            },
+        ]
+    },
+    {questionText: "Where do halogens appear on the periodic table?",
+        answerArr: [
+            {
+                choice: "The left side",
+                value: false
+            },
+            {
+                choice: "Row 7",
+                value: false
+            },
+            {
+                choice: "Group 17",
+                value: true
+            },
+            {
+                choice: "Transition Metals",
+                value: false
+            },
+        ]
+    },
+    {questionText: "Two atoms of the same element that contain different numbers of neutrons are called __________. ",
+        answerArr: [
+            {
+                choice: "ions",
+                value: false
+            },
+            {
+                choice: "isotopes",
+                value: true
+            },
+            {
+                choice: "neurons",
+                value: false
+            },
+            {
+                choice: "prototypes",
+                value: false
+            },
+        ]
+    },
+    {questionText: "When balancing an unbalanced chemical equation, it is necessary to change the ____________ ",
+        answerArr: [
+            {
+                choice: "coefficients",
+                value: true
+            },
+            {
+                choice: "subscripts",
+                value: false
+            },
+            {
+                choice: "elements",
+                value: false
+            },
+            {
+                choice: "positions of atoms",
+                value: false
+            },
+        ]
+    },
+    {questionText: "An element that never exists as a lone atom, only in pairs or molecules is called a _____________.",
+        answerArr: [
+            {
+                choice: "valence pair",
+                value: false
+            },
+            {
+                choice: "lone pair",
+                value: false
+            },
+            {
+                choice: "diatomic element",
+                value: true
+            },
+            {
+                choice: "none of the above",
+                value: false
+            },
+        ]
+    },
 ]
 
 function timeAppend() {
@@ -120,7 +260,7 @@ function highscoreStorage() {
     $("#answer-feedback").addClass('hide')
     $("#next").addClass('hide')
     $("#highscores-input").removeClass('hide')
-    $("#end-alert").text(`You've completed the quiz! You earned ${currentScore} points.`)
+    $("#end-alert").text(`You've completed the quiz! You earned ${currentScore} / 50 points.`)
     quizFinished = true;
     $("#highscore-submit").click(function () {
         var userInfo = {
@@ -174,7 +314,7 @@ $("#start").click(function() {
     $("#question").text(questionsArr[0].questionText)
     var firstAnswers = questionsArr[0].answerArr
     for (var i = 0; i < firstAnswers.length; i++) {
-        $(`#answer-choice-${i+1}`).text(firstAnswers[0].choice)
+        $(`#answer-choice-${i+1}`).text(firstAnswers[i].choice)
     }
     timeCounter()
 });
