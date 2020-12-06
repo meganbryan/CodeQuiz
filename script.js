@@ -233,4 +233,9 @@ $("#answer-choice-4").click(function(){
     }
 });
 
+$("#clear").click(function(){
+    localStorage.clear()
+    location. reload()
+});
+
 retrieveHighscores ()
