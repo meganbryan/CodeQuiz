@@ -1,8 +1,9 @@
 var questionCounter = 0
 var currentScore = 0
-var timeRemaining = 240
+var timeRemaining = 300
 var quizFinished = false
-var highscoreArr = JSON.parse(localStorage.getItem("userInfo"))
+var highscoreArr = localStorage.getItem("userInfo", JSON.stringify(highscoreArr))
+highscoreArr = highscoreArr ? highscoreArr.split(',') : [];
 
 var questionsArr = [
     {questionText: "Question 1",
@@ -127,20 +128,21 @@ function highscoreStorage() {
             userScore: currentScore,
             userTime: timeRemaining
         }
+        
         highscoreArr.push(userInfo)
         localStorage.setItem("userInfo", JSON.stringify(highscoreArr))
     })
 };
 
 function retrieveHighscores() {
-    var retrieveScores = JSON.parse(localStorage.getItem("userInfo"))
-    for (var i = 0; i < retrieveScores.length; i++) {
-        retrieveScores.sort((a, b) => {
+    for (var i = 0; i < highscoreArr.length; i++) {
+        highscoreArr = JSON.parse(localStorage.getItem("userInfo"))
+        highscoreArr.sort((a, b) => {
             return b.userScore - a.userScore;
         });
-        var initials = retrieveScores[i].userInitials
-        var score = retrieveScores[i].userScore
-        var timeLeft = retrieveScores[i].userTime
+        var initials = highscoreArr[i].userInitials
+        var score = highscoreArr[i].userScore
+        var timeLeft = highscoreArr[i].userTime
         $('#userData').append($(`<tr id="new-row-${i+1}">`))
         $(`#new-row-${i+1}`).append($(`<td id="initials-input-${i+1}">`))
         $(`#new-row-${i+1}`).append($(`<td id="score-input-${i+1}">`))
@@ -231,4 +233,4 @@ $("#answer-choice-4").click(function(){
     }
 });
 
-retrieveHighscores()
+retrieveHighscores ()
