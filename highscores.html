@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Highscores</title>
 </head>
 <body>
-    <h1>Highscores</h1>
-    <h3 id = "initialsLocalStorage"> </h3>
-    <h3 id = "scoreLocalStorage"> </h3>
+    <div class = "container">
+        <h2>Highscores</h2> 
+        <table class = "table">
+            <thead>
+                <tr>
+                    <th scope = "col"> User </th>
+                    <th scope = "col"> Score </th>
+                    <th scope = "col"> Time Remaining </th>
+                </tr>
+            </thead>
+            <tbody id = "userData">
+                
+            </tbody>
+        </table>
+        <h2 id = "recent-score" class = "red-text"> ^^^ Your most recent score! ^^^</h2>
+    </div>
 
-    <a href = "index.html"> Return to Quiz </a>
+    <button> <a href = "index.html"> Return to Quiz </a></button>
     <script src="script.js"></script>
 </body>
 </html>
+

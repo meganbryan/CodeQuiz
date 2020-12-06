@@ -1,10 +1,11 @@
 var questionCounter = 0
 var currentScore = 0
 var timeRemaining = 240
+var quizFinished = false
+var highscoreArr = JSON.parse(localStorage.getItem("userInfo"))
 
 var questionsArr = [
     {questionText: "Question 1",
-    //add colors to represent correct/incorrect answers
         answerArr: [
             {
                 choice: "Q1 C1",
@@ -67,22 +68,32 @@ var questionsArr = [
 ]
 
 function timeAppend() {
-    var minutesLeft = Math.floor(timeRemaining / 60);
-    var secondsLeft = (timeRemaining % 60);
-    $("#timer").text(`${minutesLeft} : ${secondsLeft}`);
+    var minutesLeft = Math.floor(timeRemaining / 60)
+    var secondsLeft = (timeRemaining % 60)
+    if (secondsLeft > 9) {
+        $("#timer").text(`${minutesLeft} : ${secondsLeft}`)
+    }
+    else {
+        var singleDigitNumber = ("0" + secondsLeft)
+        $("#timer").text(`${minutesLeft} : ${singleDigitNumber}`)
+    }
 };
 
 function timeCounter() {
-    if (timeRemaining > 0) {
-        interval = setInterval(function() {
+    interval = setInterval(function() {
+        if ((timeRemaining > 0) && (!quizFinished)) {
             $("#timer").removeClass("red-text")
-            timeRemaining--;
-            timeAppend();
-        }, 1000);
-    }
-    else {
-        alert (`You're out of time! Your score is ${currentScore}!`)
-    };
+            timeRemaining--
+            timeAppend()
+        }
+        else if (quizFinished) {
+            clearInterval(interval)
+        }
+        else {
+            clearInterval(interval)
+            highscoreStorage()
+            $("#end-alert").text(`You're out of time! You earned ${currentScore} points.`)
+        }}, 1000)
 };
 
 function correctAnswer() {
@@ -103,105 +114,121 @@ function wrongAnswer() {
 };
 
 function highscoreStorage() {
+    $("#question").addClass('hide')
+    $("#answers").addClass('hide')
+    $("#answer-feedback").addClass('hide')
+    $("#next").addClass('hide')
     $("#highscores-input").removeClass('hide')
+    $("#end-alert").text(`You've completed the quiz! You earned ${currentScore} points.`)
+    quizFinished = true;
     $("#highscore-submit").click(function () {
-        localStorage.setItem("Initials", $("#initials").value);
-        localStorage.setItem("Score", currentScore);
+        var userInfo = {
+            userInitials: $("#initials").val().trim(),
+            userScore: currentScore,
+            userTime: timeRemaining
+        }
+        highscoreArr.push(userInfo)
+        localStorage.setItem("userInfo", JSON.stringify(highscoreArr))
     })
 };
 
 function retrieveHighscores() {
-    var initials = localStorage.getItem("Initials");
-    var score = localStorage.getItem("Score");
-    $("#initialsLocalStorage").text(`User: ${initials}`);
-    $("#scoreLocalStorage").text(`Score: ${score}`);
+    var retrieveScores = JSON.parse(localStorage.getItem("userInfo"))
+    for (var i = 0; i < retrieveScores.length; i++) {
+        retrieveScores.sort((a, b) => {
+            return b.userScore - a.userScore;
+        });
+        var initials = retrieveScores[i].userInitials
+        var score = retrieveScores[i].userScore
+        var timeLeft = retrieveScores[i].userTime
+        $('#userData').append($(`<tr id="new-row-${i+1}">`))
+        $(`#new-row-${i+1}`).append($(`<td id="initials-input-${i+1}">`))
+        $(`#new-row-${i+1}`).append($(`<td id="score-input-${i+1}">`))
+        $(`#new-row-${i+1}`).append($(`<td id="time-input-${i+1}">`))
+        $(`#initials-input-${i+1}`).text(`${initials}`)
+        $(`#score-input-${i+1}`).text(`${score}`)
+        if (timeLeft > 0) {
+            var minutesLeft = Math.floor(timeLeft / 60)
+            var secondsLeft = (timeLeft % 60)
+            if (secondsLeft > 9) {
+                $(`#time-input-${i+1}`).text(`${minutesLeft} : ${secondsLeft}`)
+            }
+            else {
+                var singleDigitNumber = ("0" + secondsLeft)
+                $(`#time-input-${i+1}`).text(`${minutesLeft} : ${singleDigitNumber}`)
+            }
+        }
+        else {
+            $(`#time-input-${i+1}`).text(`Ran out of time!`)
+        }
+    }  
 };
-retrieveHighscores()
 
 $("#start").click(function() {
     $("#start").addClass('hide')
+    $("#show-highscores-2").addClass('hide')
     $("#answers").removeClass('hide')
     $("#timer-label").text(`Time Remaining:`)
     $("#question").text(questionsArr[0].questionText)
-    $("#answer-choice-1").text(questionsArr[0].answerArr[0].choice)
-    $("#answer-choice-2").text(questionsArr[0].answerArr[1].choice)
-    $("#answer-choice-3").text(questionsArr[0].answerArr[2].choice)
-    $("#answer-choice-4").text(questionsArr[0].answerArr[3].choice)
-    timeCounter();
+    var firstAnswers = questionsArr[0].answerArr
+    for (var i = 0; i < firstAnswers.length; i++) {
+        $(`#answer-choice-${i+1}`).text(firstAnswers[0].choice)
+    }
+    timeCounter()
 });
 
 $("#next").click(function() {
     if (questionCounter < (questionsArr.length-1)) {
+        $("#next").addClass('hide')
         $("#answers").removeClass('hide')
         $("#answer-feedback").text('')
         questionCounter ++
         $("#question").text(questionsArr[questionCounter].questionText)
-        $("#answer-choice-1").text(questionsArr[questionCounter].answerArr[0].choice)
-        $("#answer-choice-2").text(questionsArr[questionCounter].answerArr[1].choice)
-        $("#answer-choice-3").text(questionsArr[questionCounter].answerArr[2].choice)
-        $("#answer-choice-4").text(questionsArr[questionCounter].answerArr[3].choice)
+        var currentAnswer = questionsArr[questionCounter].answerArr
+        for (var i = 0; i < currentAnswer.length; i++) {
+            $(`#answer-choice-${i+1}`).text(currentAnswer[i].choice);
+        }
     }
     else {
-        highscoreStorage();
+        $("#next").text(`Submit my score!`)
+        highscoreStorage()
     }
 });
 
 $("#answer-choice-1").click(function(){
     if (questionsArr[questionCounter].answerArr[0].value) {
-        correctAnswer();
+        correctAnswer()
     }
     else {
-        wrongAnswer();
+        wrongAnswer()
     }
 });
 
 $("#answer-choice-2").click(function(){
     if (questionsArr[questionCounter].answerArr[1].value) {
-        correctAnswer();
+        correctAnswer()
     }
     else {
-        wrongAnswer();
+        wrongAnswer()
     }
 });
 
 $("#answer-choice-3").click(function(){
     if (questionsArr[questionCounter].answerArr[2].value) {
-        correctAnswer();
+        correctAnswer()
     }
     else {
-        wrongAnswer();
+        wrongAnswer()
     }
 });
 
 $("#answer-choice-4").click(function(){
     if (questionsArr[questionCounter].answerArr[3].value) {
-        correctAnswer();
+        correctAnswer()
     }
     else {
-        wrongAnswer();
+        wrongAnswer()
     }
 });
 
-
-// Attempt at creating multiple tries
-// give less points for each subsequent try?
-// var triesRemaining = 3
-// $("#answer-choice-1").click(function(){
-//     if (questionsArr[questionCounter].answerArr[0].value) {
-//         alert ("You're correct!")
-//     }
-//     else {
-//         triesRemaining--
-//         if (triesRemaining=0) {
-//             alert (`Incorrect, you have no tries remaining`)
-//         }
-//         else {
-//             alert (`You're wrong! You have ${triesRemaining} tries remaining.`)
-//         }
-//     }
-// });
-
-
-// timer for quiz
-
-// highscores in local storage
+retrieveHighscores()

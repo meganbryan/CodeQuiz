@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id = "heading-box">
-        <a href = "highscores.html"> View Highscores </a>
+        <a id = "show-highscores-1" href = "highscores.html"> View Highscores </a>
         <h1 id = "score"> Current Score: 0 </h1>
     </div>
     <div>
@@ -27,8 +27,8 @@
         </div>
         <div>
             <form id="highscores-input" class="hide" method="POST">
-                <h1> You've completed the quiz! </h1>
-                <label for = "initials">Enter your initials:</label><br>
+                <h1 id = "end-alert">  </h1>
+                <label for = "initials"> </label><br>
                 <input type="text" id="initials" placeholder="Your initials here"> <br>
                 <br>
                 <input id = "highscore-submit" type="submit" value="Add my highscore!">
@@ -36,6 +36,7 @@
         </div>
         <div>
             <button id="start"> Start Quiz </button>
+            <button id="show-highscores-2"><a href = "highscores.html"> View Highscores </a></button>
             <button id="next" class="hide"> Next Question </button>
         </div>
     </div>
