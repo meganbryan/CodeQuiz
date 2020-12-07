@@ -13,4 +13,4 @@
 ### [Code Quiz](https://meganbryan.github.io/CodeQuiz/)
 ### ![Screenshot of Homescreen](CodeQuiz_SS1.jpeg)
 ### ![Screenshot In Quiz](CodeQuiz_SS2.jpeg)
-### ![Screenshot of Highscores](CodeQuiz_SS3.jpeg)
+### ![Screenshot of Highscores](CodeQuiz_SS_HS.jpeg)
