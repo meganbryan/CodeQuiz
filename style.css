@@ -1,5 +1,5 @@
 body {
-    color:grey;
+    color:blanchedalmond;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: 20px;
 }
@@ -7,16 +7,16 @@ body {
 a {
     text-align: left;
     text-decoration: none;
-    color: white;
+    color: rgb(80, 79, 79);
 }
 
 button {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    background-color: #555555;
-    color: white;
+    background-color: blanchedalmond;
+    color: rgb(80, 79, 79);
     padding: 15px;
     border-radius: 4px;
-    border: 2px solid #004aba;
+    border: 2px solid darkseagreen;
     text-align: center;
     display: block;
     margin: 10px auto;
@@ -24,8 +24,8 @@ button {
 }
 
 #heading-box {
-    background-color: grey;
-    color: rgba(47, 255, 245, 0.575);
+    background-color: blanchedalmond;
+    color: darkcyan;
     padding: 5px 15px;
     margin-bottom: 10px;
 }
@@ -33,9 +33,28 @@ button {
 #main-box {
     margin: auto;
     width: 50%;
-    background-color: rgba(47, 255, 245, 0.575);
+    background-color: darkcyan;
     padding: 10px;
     text-align: center;
+}
+
+.highscore-box {
+    background-color: blanchedalmond;
+    color: darkcyan;
+    padding: 15px;
+}
+
+.highscore-button {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: darkseagreen;
+    color: white(80, 79, 79);
+    padding: 15px;
+    border-radius: 4px;
+    border: 2px solid darkcyan;
+    text-align: center;
+    display: block;
+    margin: 10px auto;
+    font-size: 18px;
 }
 
 .align-right {
@@ -44,6 +63,10 @@ button {
 
 .red-text {
     color: red;
+}
+
+.green-text {
+    color: darkseagreen;
 }
 
 .hide {
