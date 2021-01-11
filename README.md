@@ -10,7 +10,7 @@
     * When the user completes all 10 questions, they will be able to enter their initials, and be added to the highscores page.
         *They will then automatically be navigated back to the front page where they can either navigate to the highscore page, or try the quiz again. 
     
-### [Code Quiz](https://meganbryan.github.io/CodeQuiz/)
+### Link to deployed application: [Code Quiz](https://meganbryan.github.io/CodeQuiz/)
 ### ![Screenshot of Homescreen](CodeQuiz_SS1.jpeg)
 ### ![Screenshot In Quiz](CodeQuiz_SS2.jpeg)
 ### ![Screenshot of Highscores](CodeQuiz_SS_HS.jpeg)
