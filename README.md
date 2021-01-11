@@ -1,7 +1,7 @@
-# CodeQuiz
-#### This is the repository for Homework 4, due December 5th, 2020.
+# Code Quiz
+#### This application allows students to check their knowledge of Chemistry.
 
-### For this assignment, I have created 2 HTML files, a CSS file, and a JavaScript file. Using these, I have developed a quiz that users can take to test their knowledge of a subject.
+### This project involves 2 HTML files (one for the quiz and one for highscores), a CSS file, and a JavaScript file. Using these, I have developed a quiz that users can take multiple times to try to beat their previous scores.
     * This quiz is on basic Chemistry. My previous work experience is as an educator, most recently teaching High School Physics and Chemistry. Creating quizzes is in my wheelhouse, but never previously in this capacity. 
     * The user can navigate between the main quiz page and the page containing highscores. 
         * The highscore list will only be populated with information contained in local storage. If desired, the user may clear the highscores list. The highscores contain a user name, score, and the time remaining when the quiz was completed.
